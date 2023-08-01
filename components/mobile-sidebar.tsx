@@ -1,0 +1,23 @@
+"user client";
+
+import { Button } from "./ui/button";
+import {Menu} from "lucide-react";
+import { Sheet,SheetTrigger,SheetContent } from "./ui/sheet";
+
+const MobileSidebar =() => {
+    return (
+        <Sheet>
+            <SheetTrigger>
+                <Button variant= "ghost" size={"icon"}
+                className="md:hidden">
+                    <Menu/>
+                </Button>
+            </SheetTrigger>
+            <SheetContent side = "left" className="p-0">
+
+            </SheetContent>
+        </Sheet>
+    )
+}
+
+export default MobileSidebar
