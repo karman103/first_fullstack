@@ -4,12 +4,11 @@ import Link from "next/link"
 import Image from "next/image"
 import { Montserrat} from "next/font/google"
 import { cn } from "@/lib/utils";
-import DashboardLayout from "@/app/(dahboard)/layout";
 import {
     CodeIcon,
     ImageIcon,
     MessageSquare,
-    Music,
+    MusicIcon,
     VideoIcon,
     SettingsIcon,
     LayoutDashboard
@@ -46,6 +45,12 @@ const routes = [
         color: "text-orange-500"
     },
     {
+        label:"Music Generation",
+        icon: MusicIcon,
+        href:"/music",
+        color: "text-red-500"
+    },
+    {
         label:"Code Generation",
         icon: CodeIcon,
         href:"/code",
@@ -72,19 +77,20 @@ const Sidebar = () => {
                     <h1 className= {cn("text-2xl font-bold",montserrat.className)}> Einstein</h1>
                 </Link>
                 <div className="space-y-1">
-                    {
-                        routes.map((route) => (<Link 
-                            href={route.href}
-                            key={route.href}
-                            className=" text-sm group flex p-3 w-full
-                        justify-start font-medium cursor-pointer hover:text-white hover:bg-white/10 
-                        rounded-lg transition">
-                            <div className="flex items-center flex-1">
-                                <route.icon className= {cn("h-5 w-5 mr-3", route.color)}/>
-                                {route.label}
-                            </div>
-                        </Link>))
-                    }
+                    {routes.map((route) => (
+                    <Link 
+                        href={route.href}
+                        key={route.href}
+                        className=" text-sm group flex p-3 w-full
+                    justify-start font-medium cursor-pointer hover:text-white hover:bg-white/10 
+                    rounded-lg transition"
+                    >
+                        <div className="flex items-center flex-1">
+                            <route.icon className= {cn("h-5 w-5 mr-3", route.color)}/>
+                            {route.label}
+                        </div>
+                    </Link>        
+                ))}
                 </div>
             </div >
         </div>
