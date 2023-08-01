@@ -1,8 +1,11 @@
-// Assuming the Button component is located in "@components/ui/button" path
+import { UserButton } from "@clerk/nextjs/app-beta"
 
 export default function DashboardPage() {
   return (
-    <p> Dashborad Page (Protected)</p>
+    <div>
+      <p> Dashborad Page (Protected)</p>
+      <UserButton afterSignOutUrl="/" /> 
+    </div>
   )
 }
 
