@@ -1,5 +1,6 @@
 "use client"
 
+import axios from "axios";
 import * as z from "zod";
 import { Heading } from "@/components/heading"
 import { MessageSquare } from "lucide-react"
@@ -9,8 +10,13 @@ import {zodResolver} from "@hookform/resolvers/zod"
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import {ChatCompletionRequestMessage} from "openai";
+import { useState } from "react";
 
 const ConversationPage = () => {
+    const router = useRouter()
+    const [messages, setMessgaes] =  useState<ChatCompletionRequestMessage[]>([]);
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -20,7 +26,23 @@ const ConversationPage = () => {
 
     const isLoading = form.formState.isSubmitting;
     const onSubmit = async (values:z.infer<typeof formSchema>) => {
-        console.log(values)
+        try {
+            const usermessage: ChatCompletionRequestMessage = {
+                role: "user",
+                content:values.prompt
+            }
+            const newMessages = [...messages, usermessage];
+            const response = await axios.post("api/conversation", [
+                messagesnewMessages,
+            ])
+            setMessages((current)=>[...current,userMessage, response.data])
+
+            form.reset();
+        } catch (error:any) {
+            console.log(error);
+        } finally {
+            router.refresh();
+        }
     }
 
     return (
@@ -64,7 +86,13 @@ const ConversationPage = () => {
                     </Form>
                 </div>
                 <div className="space-y-4 mt-4">
-                    Messages Content
+                    <div className="flex flex-col-reverse mt- gap-y-4">
+                        {messages.map((message)=> (
+                            <div key={message.content}>
+                                {message.content}
+                            </div>                    
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>
