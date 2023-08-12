@@ -4,6 +4,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { Montserrat} from "next/font/google"
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
+
 import {
     CodeIcon,
     ImageIcon,
@@ -64,6 +66,7 @@ const routes = [
 ]
 
 const Sidebar = () => {
+    const pathname = usePathname();
     return (
         <div className="space-y-4 py-4 flex flex-col h-full bg-[#111827] text-white">
             <div className="px-3 py-3 flex-1">
