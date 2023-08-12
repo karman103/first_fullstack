@@ -1,4 +1,4 @@
-"user client";
+"use client";
 
 import { Button } from "./ui/button";
 import {Menu} from "lucide-react";
